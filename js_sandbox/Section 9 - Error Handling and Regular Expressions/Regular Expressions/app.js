@@ -170,7 +170,7 @@ re = /Hell\b/i  // Word boundary;
 
 
 
-// Assertopms
+// Assertions
 re = /x(?=y)/;  // Match x only if followed by y
 re = /x(?!y)/;  // Match x only if NOT followed by y
 

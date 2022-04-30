@@ -6,7 +6,13 @@ document.getElementById('phone').addEventListener('blur', validatePhone);
 
 function validateName() {
     const name = document.getElementById('name');
-    const re = /^[A-Za-z]{2,10}$/;
+    // const re = /^[A-Za-z]{2,10}$/;
+
+    const re = /?=.*[a-z]/;   // Lowercase letter
+    // const reUpper = '(?=.*[A-Z])'; // Upperowercase letter
+    // const reDigit = /\d/; // Digit
+    // const reSpecial = '(?=.*[^A-Za-z0-9])'; // Special Character
+    // const reMin8 = '(?=.{8,})'; // Minimum length of 8
 
     if(!re.test(name.value)) {
         name.classList.add('is-invalid');
