@@ -1,5 +1,3 @@
-console.log(process.env.CLIENT_ID);
-
 // Init Github
 const github = new Github;
 //Init UI
