@@ -71,7 +71,6 @@ class UI {
         const search = document.querySelector('.search');
         // Insert alert
         container.insertBefore(div, search);
-
     }
 
     clearAlert() {

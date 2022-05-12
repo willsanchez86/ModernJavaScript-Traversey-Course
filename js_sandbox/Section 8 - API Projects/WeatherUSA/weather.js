@@ -6,17 +6,38 @@ class Weather {
         this.state = state;
     }
 
-    async getWeather() {
-        // First need to fetch geoCode to pass in as parameter to OpenWeather APi
-        const geoCode = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${this.city},${this.state},US&appid=${this.api_key}`).then( response => response.json());
+    // Fetch geoCode to pass in as parameter to OpenWeather APi
+    async getGeocode() {
+        const geocodeResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${this.city},${this.state},US&appid=${this.api_key}`).then( response => response.json());
 
-        const lat = geoCode[0].lat;
-        const lon = geoCode[0].lon;
+        // API Call returns an empty string if city name or state code is invalid
+        if(geocodeResponse.length < 1) {
+            return null
+        } else {
+            return {
+                lat: geocodeResponse[0].lat,
+                lon: geocodeResponse[0].lon
+            }
+        }
+    }
 
-        const weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.api_key}&units=imperial`).then( response => response.json());
+    // Fetch Weather Data from OpenWeather API
+    async getWeather(geodata) {  
+        const lat = geodata.lat;
+        const lon = geodata.lon;
+
+        // Fetch Weather Data in imperial units
+        const weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.api_key}&units=imperial`).then(response => response.json());
  
         
         return weatherData;
+    }
+
+
+    // Change Location
+    changeLocation(cityInput, stateInput) {
+        this.city = cityInput;
+        this.state = stateInput;
     }
 }
 
